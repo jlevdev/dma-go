@@ -1,0 +1,13 @@
+-- +goose Up
+CREATE TABLE MapAsset (
+	Id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+	CreatedAt TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	UpdatedAt TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+	WorldId BIGINT REFERENCES World(id),
+	Title TEXT NOT NULL UNIQUE CHECK (char_length(Title) >= 1),
+	Type TEXT NOT NULL UNIQUE CHECK (char_length(Type) >= 1),
+	Data JSONB DEFAULT '{}' NOT NULL
+);
+
+-- +goose Down
+DROP TABLE MapAsset;

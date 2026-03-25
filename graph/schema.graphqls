@@ -1,0 +1,85 @@
+scalar Time
+scalar Map
+
+type User {
+  id: ID!
+  createdAt: Time!
+  updatedAt: Time!
+  username: String!
+}
+
+type World {
+  id: ID!
+  createdAt: Time!
+  updatedAt: Time!
+  title: String!
+  thumbnail: String
+  mapData: Map!
+}
+
+type MapAsset {
+  id: ID!
+  createdAt: Time!
+  updatedAt: Time!
+  worldId: ID
+  title: String!
+  type: String!
+  data: Map!
+}
+
+type Query {
+  users: [User!]!
+  user(id: ID!): User
+  worlds: [World!]!
+  world(id: ID!): World
+  mapAssets: [MapAsset!]!
+  mapAsset(id: ID!): MapAsset
+}
+
+input CreateUserInput {
+  username: String!
+}
+
+input UpdateUserInput {
+  username: String!
+}
+
+input CreateWorldInput {
+  title: String!
+  thumbnail: String
+  mapData: Map
+}
+
+input UpdateWorldInput {
+  title: String!
+  thumbnail: String
+  mapData: Map
+}
+
+input CreateMapAssetInput {
+  worldId: ID
+  title: String!
+  type: String!
+  data: Map
+}
+
+input UpdateMapAssetInput {
+  worldId: ID
+  title: String!
+  type: String!
+  data: Map
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User
+  deleteUser(id: ID!): Boolean!
+
+  createWorld(input: CreateWorldInput!): World!
+  updateWorld(id: ID!, input: UpdateWorldInput!): World
+  deleteWorld(id: ID!): Boolean!
+
+  createMapAsset(input: CreateMapAssetInput!): MapAsset!
+  updateMapAsset(id: ID!, input: UpdateMapAssetInput!): MapAsset
+  deleteMapAsset(id: ID!): Boolean!
+}
